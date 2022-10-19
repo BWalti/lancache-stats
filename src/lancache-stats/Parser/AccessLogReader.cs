@@ -10,7 +10,9 @@ public class AccessLogReader : IDisposable
 
     public AccessLogReader(string path)
     {
-        _sourceStream = File.Open("access.log", FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        var fullPathToAccessLog = Path.Combine(path, "access.log");
+
+        _sourceStream = File.Open(fullPathToAccessLog, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
         _sourceStreamReader = new StreamReader(_sourceStream);
 
         _resetLatch = new AutoResetEvent(false);
@@ -18,7 +20,6 @@ public class AccessLogReader : IDisposable
 
         _fsw = new FileSystemWatcher(path);
         _fsw.Filter = "access.log";
-        //_fsw.Filter = "access.log";
         _fsw.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size;
         _fsw.Changed += OnAccessLogChanged;
         _fsw.EnableRaisingEvents = true;
