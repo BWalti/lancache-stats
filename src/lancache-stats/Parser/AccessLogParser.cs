@@ -60,6 +60,14 @@ public class AccessLogParser
                 HitOrMissMatcher.Match(parts[16]),
                 uint.Parse(parts[12]));
 
+        else if (parts.Length == 18)
+            return new CacheResult(
+                new string(parts[0][1..^1]),
+                DateTimeOffset.ParseExact($"{parts[6]} {parts[7][..^3]}:{parts[7][^3..]}", "[dd/MMM/yyyy:HH:mm:ss zzz]",
+                    CultureInfo.CurrentCulture),
+                HitOrMissMatcher.Match(parts[15]),
+                uint.Parse(parts[12]));
+
         else 
             return Result.Default;
 
