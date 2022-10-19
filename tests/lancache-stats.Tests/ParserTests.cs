@@ -35,13 +35,14 @@ public class ParserTests
     public void TestSteam()
     {
         var result = _testee.Parse(SteamLine);
-        if (result is CacheResult cr) Assert.Equal(HitOrMiss.MISS, cr.HitOrMiss);
+        if (result is CacheResult cr) Assert.Equal(HitOrMiss.Miss, cr.HitOrMiss);
     }
 
     [Fact]
     public void TestBattlenet()
     {
-        _testee.Parse(BattleNetLine);
+        var result = _testee.Parse(BattleNetLine);
+        if (result is CacheResult cr) Assert.Equal(HitOrMiss.Miss, cr.HitOrMiss);
     }
 
     [Fact]

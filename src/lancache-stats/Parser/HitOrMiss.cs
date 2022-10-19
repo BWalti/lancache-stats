@@ -1,11 +1,9 @@
-﻿using Superpower.Model;
-
-namespace lancache_stats.Parser;
+﻿namespace lancache_stats.Parser;
 
 public enum HitOrMiss
 {
-    HIT,
-    MISS,
+    Hit,
+    Miss,
     Unknown
 }
 
@@ -15,8 +13,8 @@ public static class HitOrMissMatcher
     {
         return stringValue switch
         {
-            "\"MISS\"" => HitOrMiss.MISS,
-            "\"HIT\"" => HitOrMiss.HIT,
+            "\"MISS\"" => HitOrMiss.Miss,
+            "\"HIT\"" => HitOrMiss.Hit,
             _ => HitOrMiss.Unknown
         };
     }

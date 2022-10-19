@@ -1,3 +1,6 @@
 ﻿namespace lancache_stats.Parser;
 
-public record Result;
+public class Result
+{
+    public static Result Default = new();
+}

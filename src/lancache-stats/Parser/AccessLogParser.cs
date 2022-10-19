@@ -1,4 +1,5 @@
-﻿using Superpower;
+﻿using System.Globalization;
+using Superpower;
 using Superpower.Parsers;
 
 namespace lancache_stats.Parser;
@@ -38,9 +39,29 @@ public class AccessLogParser
 
     public Result Parse(string line)
     {
-        var tokens = LogTokenizer.Instance.Tokenize(line);
-        var result = Instance.Parse(tokens);
+        var parts = line.Split(' ');
 
-        return result;
+        //var tokens = LogTokenizer.Instance.Tokenize(line);
+        //var result = Instance.Parse(tokens);
+
+        if (parts.Length == 21)
+            return new CacheResult(
+            new string(parts[0][1..^1]),
+            DateTimeOffset.ParseExact($"{parts[6]} {parts[7][..^3]}:{parts[7][^3..]}", "[dd/MMM/yyyy:HH:mm:ss zzz]",
+                CultureInfo.CurrentCulture),
+            HitOrMissMatcher.Match(parts[18]),
+            uint.Parse(parts[12]));
+
+        else if(parts.Length == 19)
+            return new CacheResult(
+                new string(parts[0][1..^1]),
+                DateTimeOffset.ParseExact($"{parts[6]} {parts[7][..^3]}:{parts[7][^3..]}", "[dd/MMM/yyyy:HH:mm:ss zzz]",
+                    CultureInfo.CurrentCulture),
+                HitOrMissMatcher.Match(parts[16]),
+                uint.Parse(parts[12]));
+
+        else 
+            return Result.Default;
+
     }
 }

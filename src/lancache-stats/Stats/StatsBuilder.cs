@@ -41,12 +41,12 @@ public class SystemStats
     {
         switch (cr.HitOrMiss)
         {
-            case HitOrMiss.HIT:
+            case HitOrMiss.Hit:
                 Stats.Hits++;
                 Stats.CachedBytes += cr.Bytes;
                 break;
 
-            case HitOrMiss.MISS:
+            case HitOrMiss.Miss:
                 Stats.Misses++;
                 Stats.RemoteBytes += cr.Bytes;
                 break;
@@ -142,12 +142,12 @@ public class BucketStats
     {
         switch (cr.HitOrMiss)
         {
-            case HitOrMiss.HIT:
+            case HitOrMiss.Hit:
                 Stats.Hits++;
                 Stats.CachedBytes += cr.Bytes;
                 break;
 
-            case HitOrMiss.MISS:
+            case HitOrMiss.Miss:
                 Stats.Misses++;
                 Stats.RemoteBytes += cr.Bytes;
                 break;

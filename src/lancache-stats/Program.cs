@@ -42,7 +42,7 @@ await AnsiConsole
             statsBuilder.Apply(result);
             counter++;
 
-            if (counter % 10000 == 0)
+            if (counter % 1000 == 0)
             {
                 foreach (var stats in statsBuilder.SystemStats)
                 {
