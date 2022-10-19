@@ -8,8 +8,8 @@ using Spectre.Console;
 
 await Task.Delay(1000);
 
-var currentDirectory = Directory.GetCurrentDirectory();
-var reader = new AccessLogReader(currentDirectory);
+var path = !args.Any() ? Directory.GetCurrentDirectory() : args[0];
+var reader = new AccessLogReader(path);
 var enumerator = reader.ReadContent().GetAsyncEnumerator();
 
 var parser = new AccessLogParser();
