@@ -18,6 +18,9 @@ public class ParserTests
     private const string BattleNetLine =
         "[blizzard] 192.168.10.149 / - - - [18/Oct/2022:22:47:17 +0200] \"GET /tpr/catalogs/config/ea/5d/ea5d741bff7492ba4261d4f2172b7049 HTTP/1.1\" 200 275 \"-\" \"Battle.net/2.16.0.13763 (retail)\" \"MISS\" \"level3.blizzard.com\" \"-\"";
 
+    private const string UplayLine =
+        "[uplay] 192.168.10.149 / - - - [19/Oct/2022:15:49:33 +0200] \"GET /uplaypc/downloads/3454/slices_v3/c/2C07CE48391B66154C8635BE99DCEBF019FD9A44?_tkn_=exp=1666190961~acl=%2fuplaypc%2fdownloads%2f3454%2fslices_v3%2fc%2f2C07CE48391B66154C8635BE99DCEBF019FD9A44~data=c98b00e7-2004-4126-96c1-14a607086047~hmac=8984a5c86e518a09c1b95792883bdda911c9e5f3aeeec60a45cdae4b67a19bfa HTTP/1.1\" 200 2196142 \"-\" \"Massgate\" \"MISS\" \"uplaypc-s-ubisoft.cdn.ubi.com\" \"-\"";
+
     private readonly AccessLogParser _testee;
 
     public ParserTests()
@@ -42,6 +45,13 @@ public class ParserTests
     public void TestBattlenet()
     {
         var result = _testee.Parse(BattleNetLine);
+        if (result is CacheResult cr) Assert.Equal(HitOrMiss.Miss, cr.HitOrMiss);
+    }
+
+    [Fact]
+    public void TestUplay()
+    {
+        var result = _testee.Parse(UplayLine);
         if (result is CacheResult cr) Assert.Equal(HitOrMiss.Miss, cr.HitOrMiss);
     }
 
